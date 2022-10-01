@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJBClick.h"
 
 GLuint SJBClick::ms_click_list;	// STATIC

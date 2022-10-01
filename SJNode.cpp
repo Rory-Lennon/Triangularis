@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJNode.h"
 
 #ifdef _DEBUG

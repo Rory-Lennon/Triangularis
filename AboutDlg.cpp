@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "AboutDlg.h"
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)

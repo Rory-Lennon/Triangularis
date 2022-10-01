@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "BaseView.h"
 
 #ifdef _DEBUG
@@ -37,8 +37,8 @@ void CBaseView::build_scene_graph()
 
 int CBaseView::get_mode()
 {
-	CJikiApp* pSejikiApp = (CJikiApp*)AfxGetApp();
-	return pSejikiApp->m_mode;
+	CTriangularisApp* pSetriangularisApp = (CTriangularisApp*)AfxGetApp();
+	return pSetriangularisApp->m_mode;
 }
 
 #ifdef _DEBUG

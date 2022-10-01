@@ -1,6 +1,6 @@
 
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "CtrlBreak.h"
 
 CCtrlBreak::CCtrlBreak()
@@ -97,6 +97,6 @@ void CCtrlBreak::OnPaint()
 
 CFont* CCtrlBreak::get_font()
 {
-	CJikiApp* pSejiki = (CJikiApp*)AfxGetApp();
-	return &(pSejiki->m_font);
+	CTriangularisApp* pSetriangularis = (CTriangularisApp*)AfxGetApp();
+	return &(pSetriangularis->m_font);
 }

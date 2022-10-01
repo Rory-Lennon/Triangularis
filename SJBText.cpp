@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJBText.h"
 
 GLuint SJBText::ms_zero_list; // STATIC

@@ -17,14 +17,14 @@
 #define TIMER_FLIP_INC				 100
 #define CLICKS_TO_REG				  10
 
-class CSejikiView : public CBaseView
+class CSetriangularisView : public CBaseView
 {
 public:
 
-	DECLARE_DYNCREATE(CSejikiView)
+	DECLARE_DYNCREATE(CSetriangularisView)
 
-							CSejikiView(); 
-	virtual				~CSejikiView();
+							CSetriangularisView(); 
+	virtual				~CSetriangularisView();
 	static void			static_init();
 	virtual void		build_scene_graph();
 	void					set_gl();
@@ -61,13 +61,13 @@ protected:
 
 	int					m_reg_clicks;
 
-	//{{AFX_VIRTUAL(CSejikiView)
+	//{{AFX_VIRTUAL(CSetriangularisView)
 protected:
 	virtual void		OnDraw(CDC* pDC);      
 	//}}AFX_VIRTUAL
 
 public:
-	//{{AFX_MSG(CSejikiView)
+	//{{AFX_MSG(CSetriangularisView)
 	afx_msg void		OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void		OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void		OnSize(UINT nType, int cx, int cy);

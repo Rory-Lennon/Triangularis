@@ -1,26 +1,26 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "MainFrm.h"
 #include "AboutDlg.h"
 #include "DlgReg.h"
 #include "afxpriv.h"
 #include <string.h>
 
-BEGIN_MESSAGE_MAP(CJikiApp, CWinApp)
-	//{{AFX_MSG_MAP(CJikiApp)
+BEGIN_MESSAGE_MAP(CTriangularisApp, CWinApp)
+	//{{AFX_MSG_MAP(CTriangularisApp)
 	ON_COMMAND(ID_APP_ABOUT,	OnAppAbout)
 	ON_COMMAND(ID_REGISTER,		OnRegister)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-CJikiApp::CJikiApp()
+CTriangularisApp::CTriangularisApp()
 {
 	m_reg = false;
 }
 
-CJikiApp theApp;
+CTriangularisApp theApp;
 
-BOOL CJikiApp::InitInstance()
+BOOL CTriangularisApp::InitInstance()
 {
 	Enable3dControls();			
 
@@ -58,7 +58,7 @@ BOOL CJikiApp::InitInstance()
 	return TRUE;
 }
 
-void CJikiApp::read_config()
+void CTriangularisApp::read_config()
 {
 	WINDOWPLACEMENT wp;
 	
@@ -95,7 +95,7 @@ void CJikiApp::read_config()
 	if(m_WP.showCmd != SW_MAXIMIZE && wp.showCmd == SW_MAXIMIZE) m_WP.showCmd = SW_MAXIMIZE;		
 }
 
-void CJikiApp::write_config()
+void CTriangularisApp::write_config()
 {
 	WriteProfileInt("window", "show",	m_WP.showCmd);
 	WriteProfileInt("window", "flags",	m_WP.flags);
@@ -113,41 +113,41 @@ void CJikiApp::write_config()
 	WriteProfileString(	"user", "graphic",	m_str_key);
 }
 
-const WINDOWPLACEMENT& CJikiApp::GetWP(void) const
+const WINDOWPLACEMENT& CTriangularisApp::GetWP(void) const
 {
 	return m_WP;
 }
 
-void CJikiApp::PutWP(const WINDOWPLACEMENT& newval)
+void CTriangularisApp::PutWP(const WINDOWPLACEMENT& newval)
 {	
 	m_WP = newval;
 	m_WP.length = sizeof(m_WP); 
 }
 
-int CJikiApp::get_last_game()
+int CTriangularisApp::get_last_game()
 {
 	return m_last_game;
 }
 
-void CJikiApp::set_last_game(int last_game)
+void CTriangularisApp::set_last_game(int last_game)
 {
 	m_last_game = last_game;
 }
 
-int CJikiApp::ExitInstance() 
+int CTriangularisApp::ExitInstance() 
 {
 	write_config();
 	m_font.DeleteObject();
 	return CWinApp::ExitInstance();
 }
 
-void CJikiApp::OnAppAbout()
+void CTriangularisApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
-void CJikiApp::OnRegister() 
+void CTriangularisApp::OnRegister() 
 {
 	CDlgReg reg_dlg;
 	reg_dlg.DoModal();
@@ -157,14 +157,14 @@ void CJikiApp::OnRegister()
 #define XOR_CRYPT      0x13579ACE
 #define XOR_POST_CRYPT 0x2468BDF0
 
-CDocument* CJikiApp::OpenDocumentFile(LPCTSTR lpszFileName) 
+CDocument* CTriangularisApp::OpenDocumentFile(LPCTSTR lpszFileName) 
 {	
 	AddToRecentFileList(lpszFileName);
 	((CMainFrame*)m_pMainWnd)->read_file();
 	return (CDocument*)TRUE;
 }
 
-CString CJikiApp::get_mru_top()
+CString CTriangularisApp::get_mru_top()
 {
 	CString mru_str;
 	m_pRecentFileList->GetDisplayName(mru_str, 0, "", 0, FALSE);

@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "CtrlStatus.h"
 
 IMPLEMENT_DYNCREATE(CCtrlStatus, CStatusBar)
@@ -22,8 +22,8 @@ END_MESSAGE_MAP()
 
 CFont* CCtrlStatus::get_font()
 {
-	CJikiApp* pSejiki = (CJikiApp*)AfxGetApp();
-	return &(pSejiki->m_font);
+	CTriangularisApp* pSetriangularis = (CTriangularisApp*)AfxGetApp();
+	return &(pSetriangularis->m_font);
 }
 
 static UINT indicators[] =

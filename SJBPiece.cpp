@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJBPiece.h"
 
 SJBPiece::SJBPiece(PL_TRIA* pl_peice_trias, PL_TRIA* pl_all_trias, int piece_num)

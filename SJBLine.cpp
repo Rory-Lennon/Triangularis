@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJBLine.h"
 
 GLuint SJBLine::ms_line_list;	// STATIC

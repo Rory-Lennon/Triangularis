@@ -1,11 +1,11 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by Jiki.rc
+// Used by Triangularis.rc
 //
 #define IDD_ABOUTBOX                    100
 #define IDD_CHOOSE_GAME                 101
 #define IDR_MAINFRAME                   128
-#define IDR_SEJIKITYPE                  129
+#define IDR_SETRIANGULARISTYPE                  129
 #define IDI_SEJIKE                      129
 #define IDC_ROTATE                      131
 #define IDR_GAME_1                      137
@@ -38,7 +38,7 @@
 #define IDC_BREAK_USER                  1025
 #define IDC_BUT_CLOSE                   1026
 #define ID_HELP_HOWTOPLAY               32771
-#define ID_HELP_REGISTERSEJIKI          32772
+#define ID_HELP_REGISTERSETRIANGULARIS          32772
 #define ID_REGISTER                     32772
 #define ID_FILE_SAVEAS                  32774
 #define ID_NEW_GAME                     32778

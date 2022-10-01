@@ -1,7 +1,7 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "MainFrm.h"
-#include "SejikiView.h"
+#include "SetriangularisView.h"
 #include "DlgChoose.h"
 
 #ifdef _DEBUG
@@ -58,12 +58,12 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	context.m_pCurrentFrame		= this;
 	context.m_pLastView			= NULL;
 	context.m_pNewDocTemplate	= NULL;
-	context.m_pNewViewClass		= RUNTIME_CLASS(CSejikiView);
+	context.m_pNewViewClass		= RUNTIME_CLASS(CSetriangularisView);
 
 	mp_view = CreateView(&context);
 
-	((CSejikiView*)mp_view)->set_main_board();
-	((CSejikiView*)mp_view)->spin_360();
+	((CSetriangularisView*)mp_view)->set_main_board();
+	((CSetriangularisView*)mp_view)->spin_360();
 
 	return CFrameWnd::OnCreateClient(lpcs, pContext);
 }
@@ -101,7 +101,7 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 
 void CMainFrame::OnClose() 
 {	
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
 	WINDOWPLACEMENT wp;
 	GetWindowPlacement(&wp);
 	p_app->PutWP(wp);
@@ -137,14 +137,14 @@ void CMainFrame::OnFileOpen()
 
 void CMainFrame::OnFileSave() 
 {
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
 	if(m_file_changed) OnFileSaveAs();
 	else save_file();	
 }
 
 void CMainFrame::OnFileSaveAs() 
 {
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
 
 	CString str_default_extension = "gni";
 	CString str_file_title = "gemini-1.gni";
@@ -168,8 +168,8 @@ void CMainFrame::OnFileSaveAs()
 
 void CMainFrame::OnNewGame() 
 {
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
-	CSejikiView* p_view = (CSejikiView*)mp_view;
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
+	CSetriangularisView* p_view = (CSetriangularisView*)mp_view;
 	CDlgChoose dlg_choose(p_app->get_last_game() + 1, p_view->m_hglrc);
 	int do_it = dlg_choose.DoModal();
 	if(do_it == 1) 
@@ -179,18 +179,18 @@ void CMainFrame::OnNewGame()
 		m_file_changed = true;
 		res_file(dlg_choose.m_game);
 	}
-	((CSejikiView*)mp_view)->mp_board->update_dims();
+	((CSetriangularisView*)mp_view)->mp_board->update_dims();
 }
 
 void CMainFrame::save_file()
 {
 	m_file_changed = false;
-	((CSejikiView*)mp_view)->save_file(((CJikiApp*)AfxGetApp())->get_mru_top());
+	((CSetriangularisView*)mp_view)->save_file(((CTriangularisApp*)AfxGetApp())->get_mru_top());
 }
 
 void CMainFrame::check_save()
 {
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
 	if(p_app->get_mru_top() == "")
 	{
 		int mba = MessageBox(	"Do you want to save the changes you made to the current game?", 
@@ -204,49 +204,49 @@ void CMainFrame::check_save()
 
 bool CMainFrame::read_file()
 {
-	CJikiApp* p_app = (CJikiApp*)AfxGetApp();
-	return ((CSejikiView*)mp_view)->read_duck(p_app->get_mru_top());
+	CTriangularisApp* p_app = (CTriangularisApp*)AfxGetApp();
+	return ((CSetriangularisView*)mp_view)->read_duck(p_app->get_mru_top());
 }
 
 bool CMainFrame::res_file(int RES_ID)
 {
-	((CSejikiView*)mp_view)->res_duck(RES_ID);
+	((CSetriangularisView*)mp_view)->res_duck(RES_ID);
 	return true;
 }
 
 void CMainFrame::OnViewGrid() 
 {
-	((CSejikiView*)mp_view)->toggle_grid();
-	m_status.m_show_grid = ((CSejikiView*)mp_view)->m_show_grid;
+	((CSetriangularisView*)mp_view)->toggle_grid();
+	m_status.m_show_grid = ((CSetriangularisView*)mp_view)->m_show_grid;
 }
 
 void CMainFrame::OnUpdateViewGrid(CCmdUI* pCmdUI) 
 {
-	if(((CJikiApp*)AfxGetApp())->m_reg) pCmdUI->Enable(TRUE);
+	if(((CTriangularisApp*)AfxGetApp())->m_reg) pCmdUI->Enable(TRUE);
 	else pCmdUI->Enable(FALSE);
 
-	if(((CSejikiView*)mp_view)->m_show_grid) pCmdUI->SetCheck(TRUE);
+	if(((CSetriangularisView*)mp_view)->m_show_grid) pCmdUI->SetCheck(TRUE);
 	else pCmdUI->SetCheck(FALSE);
 }
 
 void CMainFrame::OnViewIndex() 
 {
-	((CSejikiView*)mp_view)->toggle_index();
+	((CSetriangularisView*)mp_view)->toggle_index();
 }
 
 void CMainFrame::OnUpdateViewIndex(CCmdUI* pCmdUI) 
 {
-	if(((CJikiApp*)AfxGetApp())->m_reg) pCmdUI->Enable(TRUE);
+	if(((CTriangularisApp*)AfxGetApp())->m_reg) pCmdUI->Enable(TRUE);
 	else pCmdUI->Enable(FALSE);
 
-	if(((CSejikiView*)mp_view)->m_show_index) pCmdUI->SetCheck(TRUE);
+	if(((CSetriangularisView*)mp_view)->m_show_index) pCmdUI->SetCheck(TRUE);
 	else pCmdUI->SetCheck(FALSE);
 
 }
 
 void CMainFrame::OnViewSpin() 
 {
-	((CSejikiView*)mp_view)->spin_360();	
+	((CSetriangularisView*)mp_view)->spin_360();	
 }
 
 BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam) 

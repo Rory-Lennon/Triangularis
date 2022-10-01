@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "DlgReg.h"
 
 CDlgReg::CDlgReg(CWnd* pParent /*=NULL*/) : CDialog(CDlgReg::IDD, pParent)

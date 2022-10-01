@@ -1,16 +1,16 @@
 
-#include "Jiki.h"
-#include "SejikiView.h"
-#include "SejikiParser.h"
+#include "Triangularis.h"
+#include "SetriangularisView.h"
+#include "SetriangularisParser.h"
 #include "SJNodeBoard.h"
 #include "SJBText.h"
 #include "SJBTexture.h"
 #include "fstream.h"
 #include "SJBClick.h"
 
-IMPLEMENT_DYNCREATE(CSejikiView, CBaseView)
+IMPLEMENT_DYNCREATE(CSetriangularisView, CBaseView)
 
-CSejikiView::CSejikiView()
+CSetriangularisView::CSetriangularisView()
 {
 	mp_camera		= NULL;
 	mp_board			= NULL;
@@ -22,11 +22,11 @@ CSejikiView::CSejikiView()
 	m_show_index	= false;
 }
 
-CSejikiView::~CSejikiView()
+CSetriangularisView::~CSetriangularisView()
 {}
 
-BEGIN_MESSAGE_MAP(CSejikiView, CBaseView)
-	//{{AFX_MSG_MAP(CSejikiView)
+BEGIN_MESSAGE_MAP(CSetriangularisView, CBaseView)
+	//{{AFX_MSG_MAP(CSetriangularisView)
 	ON_WM_KEYDOWN()
 	ON_WM_KEYUP()
 	ON_WM_SIZE()
@@ -38,7 +38,7 @@ BEGIN_MESSAGE_MAP(CSejikiView, CBaseView)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-void CSejikiView::static_init()
+void CSetriangularisView::static_init()
 {
 	SJBPoint::static_init();
 	SJBTria::static_init();
@@ -48,7 +48,7 @@ void CSejikiView::static_init()
 	SJBClick::static_init();
 }
 
-void CSejikiView::set_chooser(HGLRC hglrc)
+void CSetriangularisView::set_chooser(HGLRC hglrc)
 {
 	m_chooser		= true;
 	m_render_mode	= RENDER_FLIP_INFINITE;
@@ -58,7 +58,7 @@ void CSejikiView::set_chooser(HGLRC hglrc)
 	mp_board->m_board_flip.init(1, 0, 0, 0);
 }
 
-void CSejikiView::set_main_board()
+void CSetriangularisView::set_main_board()
 {
 	m_chooser		= false;
 	m_render_mode	= RENDER_NORMAL;
@@ -67,12 +67,12 @@ void CSejikiView::set_main_board()
 	build_scene_graph();
 }	
 
-void CSejikiView::start_chooser_timer()
+void CSetriangularisView::start_chooser_timer()
 {
 	SetTimer(TIMER_FLIP_PIECES_INF, 100, NULL);
 }
 
-void CSejikiView::build_scene_graph()
+void CSetriangularisView::build_scene_graph()
 {
 	set_gl();
 
@@ -91,7 +91,7 @@ void CSejikiView::build_scene_graph()
 	m_root.add_child(mp_board);
 }
 
-void CSejikiView::set_gl()
+void CSetriangularisView::set_gl()
 {
 	::glEnable(GL_DEPTH_TEST);
 	::glClearDepth(1.0f);
@@ -117,7 +117,7 @@ void CSejikiView::set_gl()
 //////////////////////////////////////////
 }
 
-bool CSejikiView::read_duck(CString file_path)
+bool CSetriangularisView::read_duck(CString file_path)
 {
 	CFile file;
 	int opened = file.Open(file_path, false);
@@ -128,7 +128,7 @@ bool CSejikiView::read_duck(CString file_path)
 	return true;
 }
 
-void CSejikiView::read_pick_up()
+void CSetriangularisView::read_pick_up()
 {
 	KillTimer(TIMER_FLIP_READ);
 	read_file(m_read_duck);
@@ -136,20 +136,20 @@ void CSejikiView::read_pick_up()
 	SetTimer(TIMER_FLIP_BOARD_360, TIMER_FLIP_INC, NULL);
 }
 
-void CSejikiView::read_file(CString file_path)
+void CSetriangularisView::read_file(CString file_path)
 {
-	CSejikiParser sjp(mp_board);
+	CSetriangularisParser sjp(mp_board);
 	sjp.read_file(file_path);
 	resize();
 }
 
-void CSejikiView::res_duck(int RES_ID)
+void CSetriangularisView::res_duck(int RES_ID)
 {
 	m_res_duck = RES_ID;
 	SetTimer(TIMER_FLIP_RES, TIMER_FLIP_INC, NULL);
 }
 
-void CSejikiView::res_pick_up()
+void CSetriangularisView::res_pick_up()
 {
 	KillTimer(TIMER_FLIP_RES);
 	res_file(m_res_duck);
@@ -157,9 +157,9 @@ void CSejikiView::res_pick_up()
 	SetTimer(TIMER_FLIP_BOARD_360, TIMER_FLIP_INC, NULL);
 }
 
-bool CSejikiView::res_file(int RES_ID)
+bool CSetriangularisView::res_file(int RES_ID)
 {
-	CSejikiParser sjp(mp_board);
+	CSetriangularisParser sjp(mp_board);
 	int limit = RES_ID;
 	if(limit > LAST_GAME) limit = LAST_GAME;
 	bool returner = sjp.res_file(limit);
@@ -167,7 +167,7 @@ bool CSejikiView::res_file(int RES_ID)
 	return returner;
 }
 
-void CSejikiView::save_file(CString file_path)
+void CSetriangularisView::save_file(CString file_path)
 {
 	ofstream open_file(file_path);
 	if(open_file.fail()) return;
@@ -175,13 +175,13 @@ void CSejikiView::save_file(CString file_path)
 	open_file.close();
 }
 
-int CSejikiView::OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message)
+int CSetriangularisView::OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message)
 {
 	if(m_chooser) return 0;
 	return CView::OnMouseActivate(pDesktopWnd, nHitTest, message);
 }
 
-void CSejikiView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CSetriangularisView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
 	if(m_chooser) return;
 
@@ -205,7 +205,7 @@ void CSejikiView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 //	TRACE(str);	
 }
 
-void CSejikiView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CSetriangularisView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
 	if(m_chooser) return;
 
@@ -226,7 +226,7 @@ void CSejikiView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 }
 
-void CSejikiView::OnSize(UINT nType, int cx, int cy) 
+void CSetriangularisView::OnSize(UINT nType, int cx, int cy) 
 {
 	CPaintDC dc(this); 
 
@@ -247,12 +247,12 @@ void CSejikiView::OnSize(UINT nType, int cx, int cy)
 	CView::OnSize(nType, cx, cy);
 }
 
-void CSejikiView::OnDraw(CDC* pDC)
+void CSetriangularisView::OnDraw(CDC* pDC)
 {
 	gl_render();
 }
 
-void CSejikiView::gl_render()
+void CSetriangularisView::gl_render()
 {
 	CPaintDC dc(this); 
 	::wglMakeCurrent(dc.m_ps.hdc, m_hglrc);
@@ -269,7 +269,7 @@ void CSejikiView::gl_render()
 //	::wglMakeCurrent(NULL, NULL);
 }
 
-void CSejikiView::OnLButtonDown(UINT nFlags, CPoint point) 
+void CSetriangularisView::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	if(m_chooser) return;
 	CView::OnLButtonDown(nFlags, point);
@@ -280,7 +280,7 @@ void CSejikiView::OnLButtonDown(UINT nFlags, CPoint point)
 	gl_render();
 }
 
-void CSejikiView::select(CPoint pt)
+void CSetriangularisView::select(CPoint pt)
 {
 	CPaintDC dc(this); 
 	::wglMakeCurrent(dc.m_ps.hdc, m_hglrc);
@@ -326,21 +326,21 @@ void CSejikiView::select(CPoint pt)
 	::wglMakeCurrent(NULL, NULL);
 }
 
-void CSejikiView::check_click()
+void CSetriangularisView::check_click()
 {
 	return;
 
-	if(((CJikiApp*)AfxGetApp())->m_reg) return;
+	if(((CTriangularisApp*)AfxGetApp())->m_reg) return;
 
 	if(++m_reg_clicks >= CLICKS_TO_REG)
 	{
 		m_reg_clicks = 0;
 		ReleaseCapture();
-		((CJikiApp*)AfxGetApp())->OnRegister();
+		((CTriangularisApp*)AfxGetApp())->OnRegister();
 	}
 }
 
-void CSejikiView::OnMouseMove(UINT nFlags, CPoint point) 
+void CSetriangularisView::OnMouseMove(UINT nFlags, CPoint point) 
 {
 	if(m_chooser) return;
 	CBaseView::OnMouseMove(nFlags, point);
@@ -358,22 +358,22 @@ void CSejikiView::OnMouseMove(UINT nFlags, CPoint point)
 	gl_render();
 }
 
-void CSejikiView::OnLButtonUp(UINT nFlags, CPoint point) 
+void CSetriangularisView::OnLButtonUp(UINT nFlags, CPoint point) 
 {
 	if(m_chooser) return;
 	CBaseView::OnLButtonUp(nFlags, point);
 	mp_board->mouse_up();
 	if(mp_board->check_win()) 
 	{
-		int game = ((CJikiApp*)AfxGetApp())->get_last_game();
+		int game = ((CTriangularisApp*)AfxGetApp())->get_last_game();
 		res_duck(++game);
-		((CJikiApp*)AfxGetApp())->set_last_game(game);
+		((CTriangularisApp*)AfxGetApp())->set_last_game(game);
 	}
 	gl_render();
 	ReleaseCapture();
 }
 
-void CSejikiView::OnTimer(UINT nIDEvent) 
+void CSetriangularisView::OnTimer(UINT nIDEvent) 
 {
 	CView::OnTimer(nIDEvent);
 
@@ -401,20 +401,20 @@ void CSejikiView::OnTimer(UINT nIDEvent)
 	gl_render();
 }
 
-void CSejikiView::resize()
+void CSetriangularisView::resize()
 {
 	CRect rect;
 	GetClientRect(&rect);
 	OnSize(NULL, rect.right, rect.bottom);
 }
 
-void CSejikiView::toggle_grid()
+void CSetriangularisView::toggle_grid()
 {
 	m_show_grid = !m_show_grid;
 	mp_board->m_show_grid = m_show_grid;
 }
 
-void CSejikiView::toggle_index()
+void CSetriangularisView::toggle_index()
 {
 	m_show_index = !m_show_index;
 //	if(m_show_index) m_render_mode = RENDER_HINT;
@@ -422,7 +422,7 @@ void CSejikiView::toggle_index()
 	mp_board->m_show_index = m_show_index;	
 }
 
-void CSejikiView::spin_360()
+void CSetriangularisView::spin_360()
 {
 	SetTimer(TIMER_FLIP_BOARD_360, 50, NULL);
 }

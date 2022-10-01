@@ -4,12 +4,12 @@
 #include "SJPtrList.h"
 #include "SJNodeBoard.h"
 
-class CSejikiParser
+class CSetriangularisParser
 {
 public:
 
-							CSejikiParser(SJNodeBoard* p_board);
-							~CSejikiParser();
+							CSetriangularisParser(SJNodeBoard* p_board);
+							~CSetriangularisParser();
 	bool					read_file(CString file_path);
 	bool					res_file(int RES_ID);
 	bool					process_file();

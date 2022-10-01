@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJNodeLight.h"
 #include "SJBMatrix.h"
 

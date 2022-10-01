@@ -1,7 +1,7 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "DlgChoose.h"
-#include "SejikiView.h"
+#include "SetriangularisView.h"
 
 CDlgChoose::CDlgChoose(int game, HGLRC	hglrc) : CDialog(IDD_CHOOSE_GAME)
 {
@@ -46,11 +46,11 @@ int CDlgChoose::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDialog::OnCreate(lpCreateStruct) == -1) return -1;
 
-	mp_view = (CWnd*)RUNTIME_CLASS(CSejikiView)->CreateObject();
+	mp_view = (CWnd*)RUNTIME_CLASS(CSetriangularisView)->CreateObject();
 	mp_view->Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(0, 0, 100, 100), this, 0);
 
-	((CSejikiView*)mp_view)->set_chooser(m_hglrc);
-	((CSejikiView*)mp_view)->res_file(m_game);
+	((CSetriangularisView*)mp_view)->set_chooser(m_hglrc);
+	((CSetriangularisView*)mp_view)->res_file(m_game);
 
 	return 0;
 }
@@ -60,12 +60,12 @@ void CDlgChoose::on_radio_range(UINT nID)
 	if(nID < IDR_GAME_8)
 	{
 		m_game = nID;
-		((CSejikiView*)mp_view)->res_file(m_game);
-		((CSejikiView*)mp_view)->gl_render();
+		((CSetriangularisView*)mp_view)->res_file(m_game);
+		((CSetriangularisView*)mp_view)->gl_render();
 	}
 	else 
 	{
-		((CJikiApp*)AfxGetApp())->OnRegister();
+		((CTriangularisApp*)AfxGetApp())->OnRegister();
 
 		CWnd* p_id = GetDlgItem(nID);
 		if(p_id) ((CButton*)p_id)->SetCheck(0);
@@ -84,6 +84,6 @@ void CDlgChoose::OnSize(UINT nType, int cx, int cy)
 void CDlgChoose::OnShowWindow(BOOL bShow, UINT nStatus) 
 {
 	CDialog::OnShowWindow(bShow, nStatus);
-	((CSejikiView*)mp_view)->start_chooser_timer();	
+	((CSetriangularisView*)mp_view)->start_chooser_timer();	
 }
 

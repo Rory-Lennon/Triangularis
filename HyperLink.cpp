@@ -1,4 +1,4 @@
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "HyperLink.h"
 
 #define TOOLTIP_ID 1

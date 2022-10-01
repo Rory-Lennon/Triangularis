@@ -1,5 +1,5 @@
 
-#include "Jiki.h"
+#include "Triangularis.h"
 #include "SJBTria.h"
 
 GLuint SJBTria::ms_tria_list; // STATIC

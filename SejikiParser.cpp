@@ -1,9 +1,9 @@
 
-#include "Jiki.h"
-#include "SejikiParser.h"
+#include "Triangularis.h"
+#include "SetriangularisParser.h"
 #include "SJBPiece.h"
 
-CSejikiParser::CSejikiParser(SJNodeBoard* p_board)
+CSetriangularisParser::CSetriangularisParser(SJNodeBoard* p_board)
 {
 	mp_board			= p_board;
 	m_pos				= 0;
@@ -11,7 +11,7 @@ CSejikiParser::CSejikiParser(SJNodeBoard* p_board)
 	m_right_mark	= 0;
 }
 
-bool CSejikiParser::read_file(CString file_path)
+bool CSetriangularisParser::read_file(CString file_path)
 {
 	CFile file;
 	int opened = file.Open(file_path, false);
@@ -26,7 +26,7 @@ bool CSejikiParser::read_file(CString file_path)
 	return process_file();
 }
  
-bool CSejikiParser::res_file(int RES_ID)
+bool CSetriangularisParser::res_file(int RES_ID)
 {
 	HMODULE hModule	= GetModuleHandle(NULL);
 	HRSRC hResInfo		= FindResource(hModule, MAKEINTRESOURCE(RES_ID), "SJK");	
@@ -43,10 +43,10 @@ bool CSejikiParser::res_file(int RES_ID)
 	return process_file();
 }
 
-CSejikiParser::~CSejikiParser()
+CSetriangularisParser::~CSetriangularisParser()
 {}
 
-bool CSejikiParser::process_file()
+bool CSetriangularisParser::process_file()
 {
 	bool valid = false;
 
@@ -62,7 +62,7 @@ bool CSejikiParser::process_file()
 	return valid;
 }
 
-bool CSejikiParser::check_dims(int rows, int cols)
+bool CSetriangularisParser::check_dims(int rows, int cols)
 {
 	bool state = false;
 
@@ -78,7 +78,7 @@ bool CSejikiParser::check_dims(int rows, int cols)
 	return state;
 }
 
-void CSejikiParser::new_game(CString line_data)
+void CSetriangularisParser::new_game(CString line_data)
 {
 	int	num_rows = extract_int(line_data, "NUMROWS");
 	int	num_cols = extract_int(line_data, "NUMCOLS");
@@ -96,7 +96,7 @@ void CSejikiParser::new_game(CString line_data)
 	}
 }
 
-void CSejikiParser::new_piece(CString line_data)
+void CSetriangularisParser::new_piece(CString line_data)
 {
 	float posx	= extract_float(line_data, "POSX");
 	float posy	= extract_float(line_data, "POSY");
@@ -119,7 +119,7 @@ void CSejikiParser::new_piece(CString line_data)
 	mp_board->clear_temp_trias();
 }
 
-bool CSejikiParser::read_seg(CString &str)
+bool CSetriangularisParser::read_seg(CString &str)
 {
 	bool keep_going = true;
 	while(keep_going)
@@ -135,7 +135,7 @@ bool CSejikiParser::read_seg(CString &str)
 	return true;
 }
 
-float CSejikiParser::string_to_float(CString str)
+float CSetriangularisParser::string_to_float(CString str)
 {
 	if(str.GetLength() <= 0) return 0.0f;
 	if(str.GetLength() >= 100) return 0.0f;
@@ -146,7 +146,7 @@ float CSejikiParser::string_to_float(CString str)
 	return ret_float;
 }
 
-int CSejikiParser::string_to_int(CString str)
+int CSetriangularisParser::string_to_int(CString str)
 {
 	if(str.GetLength() <= 0) return 0;
 	if(str.GetLength() >= 100) return 0;
@@ -158,7 +158,7 @@ int CSejikiParser::string_to_int(CString str)
    return ret_int;
 }
 
-float CSejikiParser::extract_float(CString str_input, CString str_after)
+float CSetriangularisParser::extract_float(CString str_input, CString str_after)
 {
 	char dqs = 34;
 	int pos_char = str_input.Find(str_after);
@@ -168,7 +168,7 @@ float CSejikiParser::extract_float(CString str_input, CString str_after)
 	return string_to_float(str_input.Mid(dqs_pos_1 + 1, dqs_pos_2 - dqs_pos_1 - 1));
 }
 
-int CSejikiParser::extract_int(CString str_input, CString str_after)
+int CSetriangularisParser::extract_int(CString str_input, CString str_after)
 {
 	char dqs = 34;
 	int pos_char = str_input.Find(str_after);
